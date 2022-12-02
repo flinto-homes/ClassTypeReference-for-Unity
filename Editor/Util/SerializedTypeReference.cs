@@ -10,58 +10,80 @@
     /// </summary>
     internal readonly struct SerializedTypeReference
     {
+        public readonly SerializedProperty TypeNameProperty;
         private readonly SerializedObject _parentObject;
-        private readonly SerializedProperty _typeNameProperty;
         private readonly SerializedProperty _guidProperty;
         private readonly SerializedProperty _guidAssignmentFailedProperty;
+        private readonly SerializedProperty _suppressLogs;
 
         public SerializedTypeReference(SerializedProperty typeReferenceProperty)
         {
             _parentObject = typeReferenceProperty.serializedObject;
-            _typeNameProperty = typeReferenceProperty.FindPropertyRelative(nameof(TypeReference.TypeNameAndAssembly));
+            TypeNameProperty = typeReferenceProperty.FindPropertyRelative(nameof(TypeReference._typeNameAndAssembly));
             _guidProperty = typeReferenceProperty.FindPropertyRelative(nameof(TypeReference.GUID));
             _guidAssignmentFailedProperty = typeReferenceProperty.FindPropertyRelative(nameof(TypeReference.GuidAssignmentFailed));
+            _suppressLogs = typeReferenceProperty.FindPropertyRelative(nameof(TypeReference._suppressLogs));
 
             FindGuidIfAssignmentFailed();
         }
 
         public string TypeNameAndAssembly
         {
-            get => _typeNameProperty.stringValue;
+            get => TypeNameProperty.stringValue;
             set => SetTypeNameAndAssembly(value);
         }
 
-        public bool TypeNameHasMultipleDifferentValues => _typeNameProperty.hasMultipleDifferentValues;
+        public bool SuppressLogs
+        {
+            get => _suppressLogs.boolValue;
+            set => SetSuppressLogs(value, true);
+        }
+
+        public void SetSuppressLogs(bool value, bool applyImmediately)
+        {
+            _suppressLogs.boolValue = value;
+
+            if (applyImmediately)
+                _parentObject.ApplyModifiedProperties();
+        }
+
+        public bool TypeNameHasMultipleDifferentValues => TypeNameProperty.hasMultipleDifferentValues;
 
         private bool GuidAssignmentFailed
         {
             get => _guidAssignmentFailedProperty.boolValue;
             // Used in C# 8
-            [UsedImplicitly] set => SetGUIDAssignmentFailed(value);
+            [UsedImplicitly]
+            set
+            {
+                _guidAssignmentFailedProperty.boolValue = value;
+                _parentObject.ApplyModifiedProperties();
+            }
         }
 
         // Used in C# 8
-        [UsedImplicitly] private string GUID { set => SetGUID(value); }
+        [UsedImplicitly] private string GUID
+        {
+            set
+            {
+                _guidProperty.stringValue = value;
+                _parentObject.ApplyModifiedProperties();
+            }
+        }
 
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",
             Justification = "The method is used by TypeFieldDrawer in C# 7")]
         public void SetTypeNameAndAssembly(string value)
         {
-            _typeNameProperty.stringValue = value;
+            TypeNameProperty.stringValue = value;
             _guidProperty.stringValue = GetClassGuidFromTypeName(value);
             _parentObject.ApplyModifiedProperties();
         }
 
-        private void SetGUIDAssignmentFailed(bool value)
+        public void SetType(Type type)
         {
-            _guidAssignmentFailedProperty.boolValue = value;
-            _parentObject.ApplyModifiedProperties();
-        }
-
-        private void SetGUID(string value)
-        {
-            _guidProperty.stringValue = value;
-            _parentObject.ApplyModifiedProperties();
+            TypeNameProperty.stringValue = TypeReference.GetTypeNameAndAssembly(type);
+            _guidProperty.stringValue = TypeReference.GetClassGUID(type);
         }
 
         private static string GetClassGuidFromTypeName(string typeName)

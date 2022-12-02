@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using JetBrains.Annotations;
-    using SolidUtilities.Extensions;
+    using SolidUtilities;
     using UnityEngine;
 
     /// <summary>
@@ -20,11 +20,16 @@
         [PublicAPI] public Grouping Grouping = Grouping.ByNamespaceFlat;
 
         /// <summary>
-        /// Removes (None) from the dropdown and disallows setting Type to null in Inspector.
-        /// Note that the type can still be null by default or if set through code.
-        /// Defaults to <see langword="false"/> unless explicitly specified.
+        /// Shows the (None) element in a dropdown so that the user can choose it.
+        /// Note that if this option is disabled, the type can still be null by default or if set through code.
+        /// Defaults to <see langword="true"/> unless explicitly specified.
         /// </summary>
-        [PublicAPI] public bool ExcludeNone;
+        [PublicAPI] public bool ShowNoneElement = true;
+        
+        /// <summary>
+        /// Use <see cref="ShowNoneElement"/> instead.
+        /// </summary>
+        [PublicAPI, Obsolete("Use ShowNoneElement instead.")] public bool ExcludeNone = false;
 
         /// <summary>Includes additional types in the drop-down list.</summary>
         [PublicAPI] public Type[] IncludeTypes;
@@ -37,6 +42,14 @@
         /// By default, only types that can be accessed directly by the class are shown in the list.
         /// </summary>
         [PublicAPI] public string[] IncludeAdditionalAssemblies;
+
+        /// <summary>
+        /// Shows all the public types that can be found in the project. By default, only the types that can be
+        /// referenced directly by the declaring class are included in the dropdown.
+        /// To show internal types too, use <see cref="AllowInternal"/>.
+        /// The default value of this parameter can be changed in Project Settings/Packages/Type References.
+        /// </summary>
+        [PublicAPI] public bool ShowAllTypes;
 
         /// <summary>
         /// Gets or sets the height of the dropdown. If not set, the height is dynamic (min 100, max 600 pixels).

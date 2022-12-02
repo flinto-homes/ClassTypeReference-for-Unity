@@ -1,3 +1,133 @@
+# [2.16.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.15.1...2.16.0) (2022-07-24)
+
+
+### Bug Fixes
+
+* Fixed type being null when SerializeReference is used on a field next to a serializable class that uses TypeReference ([cc77a82](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/cc77a8252fd62184093ac4bd91741cf71c856243))
+
+
+### Features
+
+* Switched from GUID to assembly names in asmdefs ([9645049](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/96450497153d8d101e686f232d729ccb3b8396de))
+
+## [2.15.1](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.15.0...2.15.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* Fixed exception in ExtEvents related to TypeReference ([45ce1f8](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/45ce1f821a71e5d81bc23a7239aa872ae5505423))
+
+# [2.15.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.14.0...2.15.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* Made _suppressLogs work properly for all instance of TypeReference ([4034588](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/40345887de9e1c17d3496116f6a6064c8401a5b4))
+
+
+### Features
+
+* Implemented new algorithm to find the objects with the missing type ([92e8d7e](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/92e8d7e0098ad4c073d95ef43f431242a8d8a581))
+* Started coloring missing types in red to draw attention to them. ([c06d230](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/c06d2301eb733a7d5e5a0277c37372ef0ce35b37))
+
+# [2.14.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.13.0...2.14.0) (2022-03-07)
+
+
+### Bug Fixes
+
+* Fixed compilation errors in samples ([8a99387](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/8a9938738418e7ba4ca2c20a71a258fb0f35c15d))
+* Returned the ExcludeNone parameter and marked it obsolete ([88607ee](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/88607eedf929e36cc1265c85af84ada76934ae46))
+
+
+### Features
+
+* Made ProjectSettings public ([c6f3c92](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/c6f3c926539bf83b800d0dd8f05f44456e8bb4a8))
+
+# [2.13.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.12.1...2.13.0) (2022-02-08)
+
+
+### Features
+
+* Started setting GUI.changed to true when a different type is chosen in the dropdown so that one can register for 'value changed' events ([72212e2](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/72212e22049683836493dbfcfc2acfc260d91b1d))
+
+## [2.12.1](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.12.0...2.12.1) (2022-02-03)
+
+
+### Bug Fixes
+
+* Fixed the error in console regarding the immutable Changelog file ([685a566](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/685a566997fd1aae40b305570406661018fd3f30))
+
+# [2.12.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.5...2.12.0) (2022-02-03)
+
+
+### Bug Fixes
+
+* Fixed the package full name in the installation paragraph ([86d6547](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/86d654783ee88649b7553778c621aa7fac78d965))
+
+
+### Features
+
+* Added SerializedTypeReference.SetType(Type type) method ([a05110a](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/a05110a1bb1be0922b4905749515111e7fb06617))
+* Added the ShowAllTypes property to the TypeOptions attribute ([8c45d27](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/8c45d274fdfedbec5b8422b976f05561d3d3bc67))
+* Added TypeReference.GetTypeNameFromNameAndAssembly static method ([1302a1c](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/1302a1c5c1252eb6a6d58d59ffbe89ed89fe947f))
+* Made TypeReference.TypeNameAndAssembly property public ([77cef13](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/77cef13004ceb9774488ed75db8437d60aff75c4))
+
+## [2.11.5](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.4...2.11.5) (2021-11-09)
+
+
+### Bug Fixes
+
+* Resolved the .dll dependency conflict in Unity 2021.2 ([3779621](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/377962158009daf1fd0d17d8f3086f86ec665939))
+
+## [2.11.4](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.3...2.11.4) (2021-10-24)
+
+
+### Bug Fixes
+
+* Fixed NullReferenceException when pressing keyboard keys in search mode ([da1113e](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/da1113e6e36e7819f20068b0e3447ba5734986dc))
+
+## [2.11.3](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.2...2.11.3) (2021-10-22)
+
+
+### Bug Fixes
+
+* Fixed NRE when opening a type dropdown on MacOS ([ec75afb](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/ec75afb614b1b21d7bb4d9d63350ad67bbaf6a33))
+
+## [2.11.2](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.1...2.11.2) (2021-10-17)
+
+
+### Bug Fixes
+
+* Fixed incorrect behavior when scrolling the hierarchy up with keyboard ([4a382fe](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/4a382fe3daaf89b82e575b96280e5412b9711890))
+* Fixed NullReferenceException when choosing a type for a generic unity object ([62d141b](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/62d141be1ebe3d97884add6547eebb41a1862e46))
+
+## [2.11.1](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.11.0...2.11.1) (2021-10-16)
+
+
+### Bug Fixes
+
+* Fixed missing extension method because of the SolidUtilties version mismatch ([bddebd1](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/bddebd1b0f22cdd0985eeaa98df595f5058beaf2))
+* Fixed the Event.Use() warning message when a dropdown is closed ([0b8e94c](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/0b8e94c20fa8a7e320141a1ee83f203c33fd83cc))
+
+# [2.11.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.10.1...2.11.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* Fixed flickering window width when opening the dropdown ([4a1383e](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/4a1383eb60a015b52cfa27fbc5f92f0e7f60fb15))
+
+
+### Features
+
+* Added ability to move through the list of types using keyboard ([85f834a](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/85f834a7a7074b74153d765f852d84b9ce62b503))
+
+## [2.10.1](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.10.0...2.10.1) (2021-09-29)
+
+
+### Bug Fixes
+
+* Fixed MissingReferenceException sometimes occurring on MacOS when opening dropdown ([87cf3c8](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/commit/87cf3c869ec2cba09f381c26661d1f2791238d9f))
+
 # [2.10.0](https://github.com/SolidAlloy/ClassTypeReference-for-Unity/compare/2.9.0...2.10.0) (2021-08-22)
 
 

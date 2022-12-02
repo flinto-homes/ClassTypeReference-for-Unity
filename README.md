@@ -8,38 +8,53 @@ A plugin that allows you to choose types from a drop-down menu in the inspector.
 ![screenshot](https://raw.githubusercontent.com/SolidAlloy/ClassTypeReference-for-Unity/master/.screenshot.png)
 
 This is a fork of the currently inactive project by Rotorz: [ClassTypeReference for Unity](https://bitbucket.org/rotorz/classtypereference-for-unity/src/master/)
-## Install with OpenUPM
-Once you have the OpenUPM cli, run the following command:
 
-```openupm install com.solidalloy.type.references```
+## Installation
+
+:heavy_exclamation_mark: Before installing the package, please disable the **Assembly Version Validation** option in **Player Settings**.
+
+### Install with OpenUPM
+
+Once you have the [OpenUPM cli](https://github.com/openupm/openupm-cli#installation), run the following command:
+
+```openupm install com.solidalloy.type-references```
 
 Or if you don't have it, add the scoped registry to manifest.json with the desired dependency semantic version: 
-```
+
+```json
   "scopedRegistries": [
     {
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.solidalloy.util",
-        "com.solidalloy.type.references",
-        "com.openupm"
+        "com.solidalloy",
+        "com.openupm",
+        "org.nuget"
       ]
     }
   ],
   "dependencies": {
-    "com.solidalloy.type.references": "2.1.0"
+    "com.solidalloy.type-references": "2.15.1"
   },
 
 ```
 
-## Install via Git URL
+### Install via Package Manager
 
 Project supports Unity Package Manager. To install the project as a Git package do the following:
 
-1. In Unity, open **Window** -> **Package Manager**.
-2. Press the **+** button, choose "**Add package from git URL...**"
-3. Enter "https://github.com/SolidAlloy/SolidUtilities.git" and press **Add**.
-4. When the first package is installed, add the main one: "https://github.com/SolidAlloy/ClassTypeReference-for-Unity.git".
+1. In Unity, open **Project Settings** -> **Package Manager**.
+2. Add a new scoped registry with the following details:
+   - **Name**: package.openupm.com
+   - **URL**: https://package.openupm.com
+   - Scope(s):
+     - com.openupm
+     - com.solidalloy
+     - org.nuget
+3. Hit **Apply**.
+4. Go to **Window** -> **Package Manager**.
+5. Press the **+** button, *Add package from git URL*.
+6. Enter **com.solidalloy.type-references**, press **Add**.
 
 ## Simple Usage
 
@@ -87,6 +102,8 @@ But if you need to refer to the `System.Type` object directly, use the **Type** 
 bool isLoggerAbstract = greetingLoggerType.Type.IsAbstract;
 ```
 
+***Tip*** Instead of the mouse, you can use arrow keys to navigate the hierarchy of types in the dropdown menu and press Enter to choose a type!
+
 ## TypeOptions Attribute
 
 If you need to customize the look of the drop-down menu or change what types are included in the list, use the `[TypeOptions]` attribute.
@@ -122,10 +139,10 @@ public TypeReference productionType;
 
 &nbsp;  
 
-You can exclude **(None)** so that no one can choose it from the dropdown.
+You can hide the **(None)** element so that no one can choose it from the dropdown.
 
 ```csharp
-[TypeOptions(ExcludeNone = true)]
+[TypeOptions(ShowNoneElement = false)]
 public TypeReference greetingLogger;
 ```
 
@@ -146,11 +163,18 @@ public class ExampleBehaviour
 }
 ```
 
-You might need to add a reference to the assembly where `CustomPlugin` is located to make it appear in the drop-down menu. However, if it is not possible or you just need to test out some things, there is an option to include assemblies your class does not have access to - `IncludeAdditionalAssemblies`. Use it like this:
+You can use the `IncludeAdditionalAssemblies` parameter to add all types of a particular assembly to the dropdown:
 
 ```csharp
 [Inherits(typeof(IAttribute), IncludeAdditionalAssemblies = new[] { "Assembly-CSharp" })]
 public TypeReference attribute;
+```
+
+Or you can use the `ShowAllTypes` parameter to show **all** types defined in the project. But beware that it can create a large list with a lot of types you'll never need.
+
+```csharp
+[TypeOptions(ShowAllTypes = true)]
+public TypeReference AnyType;
 ```
 
 &nbsp;  
@@ -237,6 +261,8 @@ Some options are located in Project Settings.
 By default, the field shows built-in types by their keyword name instead of the full name (e.g. `int` instead of `System.Int32`). You can change this by setting the ***Use built-in*** ***names*** option to false.
 
 The searchbar appears when you have more than 10 types in the dropdown list by default. You can change this behaviour with the ***Searchbar minimum items count*** option.
+
+**Show all types** - search for types in all assemblies located in the project, instead of in assemblies referenced by the type's assembly. It's disabled by default, and can be enabled per field with the `[TypeOptions(ShowAllTypes = true)]` attribute. But if you need this feature in all type references, feel free to enable it here.
 
 
 
